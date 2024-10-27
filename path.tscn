@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://pm5285geoe6f"]
+
+[ext_resource type="Texture2D" uid="uid://wqi4joydi2vh" path="res://materials/stone_normal.jpg" id="1_008mb"]
+
+[sub_resource type="Curve3D" id="Curve3D_iveqa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vk5by"]
+albedo_color = Color(0.458405, 0.458405, 0.458405, 1)
+normal_enabled = true
+normal_texture = ExtResource("1_008mb")
+uv1_triplanar = true
+disable_receive_shadows = true
+
+[node name="Path3D" type="Path3D"]
+curve = SubResource("Curve3D_iveqa")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0046109, 0.0557362, -0.0193577)
+polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 2, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 0
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_vk5by")

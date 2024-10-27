@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpquaqgjf4arp"]
+
+[ext_resource type="PackedScene" uid="uid://dpw2syiui6b3a" path="res://Props/fountain.glb" id="1_4ppd5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7yvg8"]
+size = Vector3(3.1, 2, 0.35)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mn1xu"]
+height = 1.6
+radius = 6.3
+
+[node name="StaticBody3D" type="StaticBody3D"]
+
+[node name="fountain" parent="." instance=ExtResource("1_4ppd5")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.981627, 0, 0.190809, 0, 1, 0, -0.190809, 0, 0.981627, 1.62423, 0.0385125, 7.85627)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.981627, 0, -0.190809, 0, 1, 0, 0.190809, 0, 0.981627, -1.47993, 0.0385125, 7.8883)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.981627, 0, -0.190809, 0, 1, 0, 0.190809, 0, 0.981627, 1.62423, 0.0385125, -7.89023)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.981627, 0, 0.190809, 0, 1, 0, -0.190809, 0, 0.981627, -1.47993, 0.0385125, -7.88298)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.83867, 0, 0.544639, 0, 1, 0, -0.544639, 0, 0.83867, -4.44412, 0.0385125, -6.69287)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.83867, 0, -0.544639, 0, 1, 0, 0.544639, 0, 0.83867, 4.49805, 0.0385125, -6.66236)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.83867, 0, 0.544639, 0, 1, 0, -0.544639, 0, 0.83867, 4.48534, 0.0385125, 6.67563)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.83867, 0, -0.544639, 0, 1, 0, 0.544639, 0, 0.83867, -4.46258, 0.0385125, 6.6778)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.559193, 0, -0.829037, 0, 1, 0, 0.829037, 0, 0.559193, -6.6842, 0.0385125, 4.46626)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.559193, 0, 0.829037, 0, 1, 0, -0.829037, 0, 0.559193, -6.6842, 0.0385125, -4.49872)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.559193, 0, 0.829037, 0, 1, 0, -0.829037, 0, 0.559193, 6.68949, 0.0385125, 4.46626)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.559193, 0, -0.829037, 0, 1, 0, 0.829037, 0, 0.559193, 6.68949, 0.0385125, -4.43176)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D13" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.190809, 0, -0.981627, 0, 1, 0, 0.981627, 0, 0.190809, 7.88559, 0.0385125, -1.54609)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D14" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.190809, 0, 0.981627, 0, 1, 0, -0.981627, 0, 0.190809, -7.87577, 0.0385125, -1.54609)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D15" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.190809, 0, 0.981627, 0, 1, 0, -0.981627, 0, -0.190809, -7.87089, 0.0385125, 1.53758)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="CollisionShape3D16" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.190809, 0, -0.981627, 0, 1, 0, 0.981627, 0, -0.190809, 7.88697, 0.0385125, 1.55535)
+shape = SubResource("BoxShape3D_7yvg8")
+
+[node name="middle" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_mn1xu")
