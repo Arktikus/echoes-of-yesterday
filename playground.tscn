@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://bx7ntynsonqfi"]
+[gd_scene load_steps=18 format=3 uid="uid://bx7ntynsonqfi"]
 
 [ext_resource type="Texture2D" uid="uid://dhmcg15onasch" path="res://output-onlinepngtools(3).png" id="1_olesv"]
 [ext_resource type="PackedScene" uid="uid://dt7hgke2npxyn" path="res://player/player.tscn" id="2_gpd66"]
+[ext_resource type="Material" uid="uid://dknajwfyev72w" path="res://materials/cylinder_fountain_texture.res" id="3_ch3ex"]
 [ext_resource type="PackedScene" uid="uid://ecwa2ytxe35o" path="res://Props/parkbench.tscn" id="3_gk65b"]
-[ext_resource type="PackedScene" uid="uid://dpquaqgjf4arp" path="res://Props/fountain.tscn" id="4_m7nwb"]
-[ext_resource type="Texture2D" uid="uid://wqi4joydi2vh" path="res://materials/stone_normal.jpg" id="5_614rt"]
+[ext_resource type="PackedScene" uid="uid://c06ed0ll4ka2p" path="res://Props/trash_can.tscn" id="6_kyilf"]
+[ext_resource type="Script" path="res://fps_label.gd" id="7_k4pil"]
+[ext_resource type="LightmapGIData" uid="uid://dcyquc78qq1qj" path="res://playground.lmbake" id="8_bm3ad"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_up78g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -53,13 +55,6 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30alc"]
-albedo_color = Color(0.458405, 0.458405, 0.458405, 1)
-normal_enabled = true
-normal_texture = ExtResource("5_614rt")
-uv1_triplanar = true
-disable_receive_shadows = true
-
 [node name="Playground" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -73,6 +68,7 @@ directional_shadow_max_distance = 50.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.77933, 0, 0)
+visible = false
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -3.15965, 1.0018, 0)
@@ -86,19 +82,14 @@ shape = SubResource("BoxShape3D_e5fjw")
 [node name="Player" parent="." instance=ExtResource("2_gpd66")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.11912, 1.06424, 0.00965106)
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+[node name="Floor" type="StaticBody3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("PlaneMesh_a4620")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("BoxShape3D_b64kh")
-
-[node name="Parkbench" parent="." instance=ExtResource("3_gk65b")]
-
-[node name="StaticBody3D3" parent="." instance=ExtResource("4_m7nwb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16.8025)
 
 [node name="Paths" type="Node3D" parent="."]
 
@@ -119,4 +110,24 @@ path_local = true
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
-material = SubResource("StandardMaterial3D_30alc")
+material = ExtResource("3_ch3ex")
+
+[node name="Parkbench" parent="." instance=ExtResource("3_gk65b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.353628)
+
+[node name="Parkbench2" parent="." instance=ExtResource("3_gk65b")]
+transform = Transform3D(0.986892, 0, -0.16138, 0, 1, 0, 0.16138, 0, 0.986892, 0, 0, 5.30466)
+
+[node name="TrashCan" parent="." instance=ExtResource("6_kyilf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.340856, 0, 4.64713)
+
+[node name="FPSLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS: 0"
+script = ExtResource("7_k4pil")
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+quality = 3
+generate_probes_subdiv = 3
+light_data = ExtResource("8_bm3ad")

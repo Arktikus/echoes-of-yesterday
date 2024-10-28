@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpquaqgjf4arp"]
+[gd_scene load_steps=6 format=3 uid="uid://dpquaqgjf4arp"]
 
-[ext_resource type="PackedScene" uid="uid://dpw2syiui6b3a" path="res://Props/fountain.glb" id="1_4ppd5"]
+[ext_resource type="ArrayMesh" uid="uid://dlbm8l8pj1ufy" path="res://materials/cylinder_fountain1.res" id="1_hgvvg"]
+[ext_resource type="ArrayMesh" uid="uid://bp0tfti6sfku3" path="res://materials/cylinder_fountain2.res" id="2_a7msy"]
+[ext_resource type="ArrayMesh" uid="uid://cyr7ej83swev2" path="res://materials/cylinder_fountain3.res" id="3_jr1nd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7yvg8"]
 size = Vector3(3.1, 2, 0.35)
@@ -9,9 +11,7 @@ size = Vector3(3.1, 2, 0.35)
 height = 1.6
 radius = 6.3
 
-[node name="StaticBody3D" type="StaticBody3D"]
-
-[node name="fountain" parent="." instance=ExtResource("1_4ppd5")]
+[node name="Fountain" type="StaticBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.981627, 0, 0.190809, 0, 1, 0, -0.190809, 0, 0.981627, 1.62423, 0.0385125, 7.85627)
@@ -79,3 +79,17 @@ shape = SubResource("BoxShape3D_7yvg8")
 
 [node name="middle" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_mn1xu")
+
+[node name="Cylinder2" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_hgvvg")
+skeleton = NodePath("")
+
+[node name="Cylinder_002" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.903892, 0, 0, 0, 0.903892, 0, 0, 0, 0.903892, 0, 0, 0)
+mesh = ExtResource("2_a7msy")
+skeleton = NodePath("")
+
+[node name="water2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.05, 0, 0, 0, 1, 0, 0.453682, 0)
+mesh = ExtResource("3_jr1nd")
+skeleton = NodePath("")

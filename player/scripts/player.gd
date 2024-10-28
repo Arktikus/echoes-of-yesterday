@@ -8,7 +8,7 @@ class_name Player extends CharacterBody3D
 
 @export_group("Camera")
 @export_range(0.0, 10.0, 0.1) var mouse_sensitivity: float = 5.0
-@export var min_vertical_angle: float = -PI / 6.0  # -30 Grad
+@export var min_vertical_angle: float = -PI / 3.0  # -30 Grad
 @export var max_vertical_angle: float = PI / 3.0   # 60 Grad
 
 @onready var _camera_pivot: Node3D = %CameraPivot
