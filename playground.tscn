@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bx7ntynsonqfi"]
+[gd_scene load_steps=16 format=3 uid="uid://bx7ntynsonqfi"]
 
 [ext_resource type="Texture2D" uid="uid://dhmcg15onasch" path="res://output-onlinepngtools(3).png" id="1_olesv"]
 [ext_resource type="PackedScene" uid="uid://dt7hgke2npxyn" path="res://player/player.tscn" id="2_gpd66"]
-[ext_resource type="Material" uid="uid://dknajwfyev72w" path="res://materials/cylinder_fountain_texture.res" id="3_ch3ex"]
 [ext_resource type="PackedScene" uid="uid://ecwa2ytxe35o" path="res://Props/parkbench.tscn" id="3_gk65b"]
+[ext_resource type="Texture2D" uid="uid://svgq0mjuy6r1" path="res://textures/tile/stone_01.png" id="3_oil13"]
+[ext_resource type="LightmapGIData" uid="uid://dcyquc78qq1qj" path="res://playground.lmbake" id="6_88vqw"]
+[ext_resource type="PackedScene" uid="uid://bssdklc7e57gt" path="res://Props/barrel.tscn" id="7_6gvi2"]
 [ext_resource type="Script" path="res://fps_label.gd" id="7_k4pil"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_up78g"]
@@ -43,6 +45,11 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_643gc"]
+cull_mode = 1
+albedo_texture = ExtResource("3_oil13")
+uv1_triplanar = true
+
 [node name="Playground" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -68,7 +75,6 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_b64kh")
 
 [node name="Paths" type="Node3D" parent="."]
-visible = false
 
 [node name="Path3D" type="Path3D" parent="Paths"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.47689, 0, -4.18333)
@@ -76,6 +82,7 @@ curve = SubResource("Curve3D_sotij")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="Paths/Path3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00461102, 0.0203656, -0.0193577)
+cast_shadow = 0
 polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -87,7 +94,7 @@ path_local = true
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
-material = ExtResource("3_ch3ex")
+material = SubResource("StandardMaterial3D_643gc")
 
 [node name="Parkbench" parent="." instance=ExtResource("3_gk65b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.353628)
@@ -103,7 +110,16 @@ script = ExtResource("7_k4pil")
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 quality = 3
+light_data = ExtResource("6_88vqw")
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.42123)
 size = Vector3(3, 4, 11)
+
+[node name="Barrel" parent="." instance=ExtResource("7_6gvi2")]
+transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 5.26007, 0.585413, 3.65563)
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="Barrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+intensity = 0.5
+size = Vector3(2, 2, 2)
