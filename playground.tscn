@@ -1,12 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://bx7ntynsonqfi"]
+[gd_scene load_steps=13 format=3 uid="uid://bx7ntynsonqfi"]
 
 [ext_resource type="Texture2D" uid="uid://dhmcg15onasch" path="res://output-onlinepngtools(3).png" id="1_olesv"]
 [ext_resource type="PackedScene" uid="uid://dt7hgke2npxyn" path="res://player/player.tscn" id="2_gpd66"]
 [ext_resource type="Material" uid="uid://dknajwfyev72w" path="res://materials/cylinder_fountain_texture.res" id="3_ch3ex"]
 [ext_resource type="PackedScene" uid="uid://ecwa2ytxe35o" path="res://Props/parkbench.tscn" id="3_gk65b"]
-[ext_resource type="PackedScene" uid="uid://c06ed0ll4ka2p" path="res://Props/trash_can.tscn" id="6_kyilf"]
 [ext_resource type="Script" path="res://fps_label.gd" id="7_k4pil"]
-[ext_resource type="LightmapGIData" uid="uid://dcyquc78qq1qj" path="res://playground.lmbake" id="8_bm3ad"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_up78g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,23 +25,13 @@ fog_aerial_perspective = 0.1
 fog_height_density = 0.2
 fog_depth_begin = 80.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_87jra"]
-cull_mode = 2
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_3h1x6"]
-material = SubResource("StandardMaterial3D_87jra")
-size = Vector2(2, 4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_e5fjw"]
-size = Vector3(2, 4, 0.1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eij3s"]
 albedo_texture = ExtResource("1_olesv")
-uv1_triplanar = true
+uv1_scale = Vector3(80, 80, 80)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_a4620"]
 material = SubResource("StandardMaterial3D_eij3s")
-size = Vector2(300, 300)
+size = Vector2(200, 200)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b64kh"]
 size = Vector3(300, 0.1, 300)
@@ -66,25 +54,13 @@ shadow_enabled = true
 shadow_normal_bias = 0.5
 directional_shadow_max_distance = 50.0
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.77933, 0, 0)
-visible = false
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -3.15965, 1.0018, 0)
-mesh = SubResource("PlaneMesh_3h1x6")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, -3.17188, 0.951189, 0.0248427)
-shape = SubResource("BoxShape3D_e5fjw")
-
 [node name="Player" parent="." instance=ExtResource("2_gpd66")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.11912, 1.06424, 0.00965106)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.564661, 3.25895, 0.864831)
 
 [node name="Floor" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+cast_shadow = 0
 mesh = SubResource("PlaneMesh_a4620")
 skeleton = NodePath("../..")
 
@@ -92,6 +68,7 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_b64kh")
 
 [node name="Paths" type="Node3D" parent="."]
+visible = false
 
 [node name="Path3D" type="Path3D" parent="Paths"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.47689, 0, -4.18333)
@@ -118,9 +95,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.353628)
 [node name="Parkbench2" parent="." instance=ExtResource("3_gk65b")]
 transform = Transform3D(0.986892, 0, -0.16138, 0, 1, 0, 0.16138, 0, 0.986892, 0, 0, 5.30466)
 
-[node name="TrashCan" parent="." instance=ExtResource("6_kyilf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.340856, 0, 4.64713)
-
 [node name="FPSLabel" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
@@ -129,5 +103,7 @@ script = ExtResource("7_k4pil")
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 quality = 3
-generate_probes_subdiv = 3
-light_data = ExtResource("8_bm3ad")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.42123)
+size = Vector3(3, 4, 11)

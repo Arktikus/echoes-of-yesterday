@@ -26,7 +26,8 @@ window/vsync/vsync_mode=0
 
 folder_colors={
 "res://Props/": "gray",
-"res://player/": "purple"
+"res://player/": "purple",
+"res://textures/": "orange"
 }
 
 [input]
