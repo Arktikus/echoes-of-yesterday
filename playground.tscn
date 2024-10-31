@@ -1,12 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://bx7ntynsonqfi"]
+[gd_scene load_steps=25 format=3 uid="uid://bx7ntynsonqfi"]
 
 [ext_resource type="Texture2D" uid="uid://dhmcg15onasch" path="res://output-onlinepngtools(3).png" id="1_olesv"]
 [ext_resource type="PackedScene" uid="uid://dt7hgke2npxyn" path="res://player/player.tscn" id="2_gpd66"]
+[ext_resource type="Texture2D" uid="uid://rnm3vc52wc17" path="res://textures/floor/floor_02.png" id="3_dkard"]
 [ext_resource type="PackedScene" uid="uid://ecwa2ytxe35o" path="res://Props/parkbench.tscn" id="3_gk65b"]
 [ext_resource type="Texture2D" uid="uid://svgq0mjuy6r1" path="res://textures/tile/stone_01.png" id="3_oil13"]
+[ext_resource type="Texture2D" uid="uid://bgw3m1k3dxi2h" path="res://textures/floor/floor_01_bump.png" id="4_5m11n"]
+[ext_resource type="Texture2D" uid="uid://djes1ooi4v1lm" path="res://textures/floor/floor_01_normal.png" id="5_0hg1j"]
 [ext_resource type="LightmapGIData" uid="uid://dcyquc78qq1qj" path="res://playground.lmbake" id="6_88vqw"]
 [ext_resource type="PackedScene" uid="uid://bssdklc7e57gt" path="res://Props/barrel.tscn" id="7_6gvi2"]
 [ext_resource type="Script" path="res://fps_label.gd" id="7_k4pil"]
+[ext_resource type="Texture2D" uid="uid://b0mi4gxdqrvob" path="res://textures/wall/wall_02_edited.png" id="8_sb3lp"]
+[ext_resource type="Texture2D" uid="uid://db7tvabybt02y" path="res://textures/wall/wall_02_edited_normal.png" id="9_r8yv3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_up78g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -45,13 +50,34 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_643gc"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5f0nh"]
 cull_mode = 1
-albedo_texture = ExtResource("3_oil13")
-uv1_triplanar = true
+albedo_texture = ExtResource("3_dkard")
+normal_enabled = true
+normal_texture = ExtResource("5_0hg1j")
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_5m11n")
+uv1_scale = Vector3(2, 20, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c084p"]
 albedo_color = Color(0.427493, 0.427493, 0.427493, 1)
+albedo_texture = ExtResource("3_oil13")
+uv1_scale = Vector3(10, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uo4bk"]
+albedo_texture = ExtResource("8_sb3lp")
+normal_enabled = true
+normal_texture = ExtResource("9_r8yv3")
+uv1_scale = Vector3(18, 6, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qhgrx"]
+lightmap_size_hint = Vector2i(51, 91)
+material = SubResource("StandardMaterial3D_uo4bk")
+add_uv2 = true
+size = Vector3(9, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6nhdt"]
+size = Vector3(9, 4, 0.5)
 
 [node name="Playground" type="Node3D"]
 
@@ -84,7 +110,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.47689, 0, -4.18333)
 curve = SubResource("Curve3D_sotij")
 
 [node name="csg_polygon_3d" type="CSGPolygon3D" parent="paths/path_3d"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00461102, 0.0203656, -0.0193577)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00461102, 0.047699, -0.0193577)
 cast_shadow = 0
 polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 2, 0)
 mode = 2
@@ -97,7 +123,7 @@ path_local = true
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
-material = SubResource("StandardMaterial3D_643gc")
+material = SubResource("StandardMaterial3D_5f0nh")
 
 [node name="parkbench" parent="." instance=ExtResource("3_gk65b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.353628)
@@ -128,7 +154,18 @@ intensity = 0.5
 size = Vector3(2, 2, 2)
 
 [node name="csg_box_3d" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.92336, 2.13845, 1.83755)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09769, 2.13845, 1.83755)
 use_collision = true
 size = Vector3(1, 1, 9.82465)
 material = SubResource("StandardMaterial3D_c084p")
+
+[node name="static_body_3d" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.031, 1, 0)
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="static_body_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00117, 0)
+mesh = SubResource("BoxMesh_qhgrx")
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="static_body_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_6nhdt")

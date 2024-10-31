@@ -8,7 +8,7 @@ height = 1.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cb3ug"]
 albedo_texture = ExtResource("1_4tkph")
-metallic = 0.7
+metallic = 1.0
 roughness = 0.6
 uv1_scale = Vector3(5, 5, 5)
 
