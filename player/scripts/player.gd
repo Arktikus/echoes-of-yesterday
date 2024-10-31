@@ -6,6 +6,7 @@ class_name Player extends CharacterBody3D
 @export var crouching_speed: float = 2.0 # 3
 @export var jump_velocity: float = 5.0 # 5
 @export var lerp_speed: float = 20.0 # 20
+@export var air_lerp_speed: float = 2.0
 
 @export_group("Camera")
 @export_range(0.0, 10.0, 0.1) var mouse_sensitivity: float = 2.0
@@ -92,7 +93,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor(): ##Jumping
 		velocity.y = jump_velocity
 	
-	_direction = lerp(_direction, (transform.basis * Vector3(_input_dir.x, 0, _input_dir.y)).normalized(), lerp_speed * delta)
+	if is_on_floor():
+		_direction = lerp(_direction, (transform.basis * Vector3(_input_dir.x, 0, _input_dir.y)).normalized(), lerp_speed * delta)
+	else:
+		if _input_dir != Vector2.ZERO:
+			_direction = lerp(_direction, (transform.basis * Vector3(_input_dir.x, 0, _input_dir.y)).normalized(), air_lerp_speed * delta)
 	
 	if _direction:
 		velocity.x = _direction.x * _current_speed

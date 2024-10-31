@@ -26,6 +26,10 @@ window/vsync/vsync_mode=0
 
 naming/node_name_casing=2
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/YouCanDoIt/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
