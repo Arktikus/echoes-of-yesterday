@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bx7ntynsonqfi"]
+[gd_scene load_steps=17 format=3 uid="uid://bx7ntynsonqfi"]
 
 [ext_resource type="Texture2D" uid="uid://dhmcg15onasch" path="res://output-onlinepngtools(3).png" id="1_olesv"]
 [ext_resource type="PackedScene" uid="uid://dt7hgke2npxyn" path="res://player/player.tscn" id="2_gpd66"]
@@ -50,37 +50,40 @@ cull_mode = 1
 albedo_texture = ExtResource("3_oil13")
 uv1_triplanar = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c084p"]
+albedo_color = Color(0.427493, 0.427493, 0.427493, 1)
+
 [node name="Playground" type="Node3D"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="world_environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_voxi5")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="directional_light_3d" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 shadow_normal_bias = 0.5
 directional_shadow_max_distance = 50.0
 
-[node name="Player" parent="." instance=ExtResource("2_gpd66")]
+[node name="player" parent="." instance=ExtResource("2_gpd66")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.564661, 3.25895, 0.864831)
 
-[node name="Floor" type="StaticBody3D" parent="."]
+[node name="floor" type="StaticBody3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="floor"]
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_a4620")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+[node name="collision_shape_3d" type="CollisionShape3D" parent="floor"]
 shape = SubResource("BoxShape3D_b64kh")
 
-[node name="Paths" type="Node3D" parent="."]
+[node name="paths" type="Node3D" parent="."]
 
-[node name="Path3D" type="Path3D" parent="Paths"]
+[node name="path_3d" type="Path3D" parent="paths"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.47689, 0, -4.18333)
 curve = SubResource("Curve3D_sotij")
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Paths/Path3D"]
+[node name="csg_polygon_3d" type="CSGPolygon3D" parent="paths/path_3d"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00461102, 0.0203656, -0.0193577)
 cast_shadow = 0
 polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 2, 0)
@@ -96,10 +99,10 @@ path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_643gc")
 
-[node name="Parkbench" parent="." instance=ExtResource("3_gk65b")]
+[node name="parkbench" parent="." instance=ExtResource("3_gk65b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.353628)
 
-[node name="Parkbench2" parent="." instance=ExtResource("3_gk65b")]
+[node name="parkbench2" parent="." instance=ExtResource("3_gk65b")]
 transform = Transform3D(0.986892, 0, -0.16138, 0, 1, 0, 0.16138, 0, 0.986892, 0, 0, 5.30466)
 
 [node name="FPSLabel" type="Label" parent="."]
@@ -108,18 +111,24 @@ offset_bottom = 23.0
 text = "FPS: 0"
 script = ExtResource("7_k4pil")
 
-[node name="LightmapGI" type="LightmapGI" parent="."]
+[node name="lightmap_gi" type="LightmapGI" parent="."]
 quality = 3
 light_data = ExtResource("6_88vqw")
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+[node name="reflection_probe" type="ReflectionProbe" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.42123)
 size = Vector3(3, 4, 11)
 
-[node name="Barrel" parent="." instance=ExtResource("7_6gvi2")]
+[node name="barrel" parent="." instance=ExtResource("7_6gvi2")]
 transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 5.26007, 0.585413, 3.65563)
 
-[node name="ReflectionProbe2" type="ReflectionProbe" parent="Barrel"]
+[node name="reflection_probe2" type="ReflectionProbe" parent="barrel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 intensity = 0.5
 size = Vector3(2, 2, 2)
+
+[node name="csg_box_3d" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.92336, 1.62332, 1.83755)
+use_collision = true
+size = Vector3(1, 1, 9.82465)
+material = SubResource("StandardMaterial3D_c084p")

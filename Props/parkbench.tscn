@@ -77,21 +77,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_gv68x")
 
-[node name="Parkbench" type="StaticBody3D"]
+[node name="parkbench" type="StaticBody3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="collision_shape_3d" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36045, 0.33471, 2.00677)
 shape = SubResource("BoxShape3D_c6x0c")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="collision_shape_3d2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.670984, 1.18679, 1.93957)
 shape = SubResource("BoxShape3D_tt7k7")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+[node name="collision_shape_3d3" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.308192, 0.825373, 0.438182)
 shape = SubResource("BoxShape3D_qewdn")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+[node name="collision_shape_3d4" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.308192, 0.825373, 3.55887)
 shape = SubResource("BoxShape3D_qewdn")
 

@@ -1,30 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt7hgke2npxyn"]
+[gd_scene load_steps=4 format=3 uid="uid://dt7hgke2npxyn"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_21upv"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_rjaeb"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1qb2e"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_buqt4"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sbmto"]
+height = 1.2
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_tivnn"]
-
-[node name="Player" type="CharacterBody3D"]
+[node name="player" type="CharacterBody3D"]
 script = ExtResource("1_21upv")
 
-[node name="PlayerMesh" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_rjaeb")
+[node name="standing_collision_shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1qb2e")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_buqt4")
+[node name="crouching_collision_shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("CapsuleShape3D_sbmto")
+disabled = true
 
-[node name="CameraPivot" type="Node3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0.5, 0)
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
-shape = SubResource("SphereShape3D_tivnn")
-spring_length = 5.0
+[node name="eyes" type="Node3D" parent="head"]
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
-unique_name_in_owner = true
+[node name="camera_3d" type="Camera3D" parent="head/eyes"]
 far = 100.0
+
+[node name="ray_cast_3d" type="RayCast3D" parent="."]
+target_position = Vector3(0, 2, 0)

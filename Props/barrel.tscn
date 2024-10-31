@@ -99,10 +99,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_fod42")
 
-[node name="Barrel" type="RigidBody3D"]
+[node name="barrel" type="RigidBody3D"]
 mass = 0.002
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="collision_shape_3d" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 shape = SubResource("CylinderShape3D_ebkis")
 
