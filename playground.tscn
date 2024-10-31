@@ -128,7 +128,7 @@ intensity = 0.5
 size = Vector3(2, 2, 2)
 
 [node name="csg_box_3d" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.92336, 1.62332, 1.83755)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.92336, 2.13845, 1.83755)
 use_collision = true
 size = Vector3(1, 1, 9.82465)
 material = SubResource("StandardMaterial3D_c084p")

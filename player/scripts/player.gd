@@ -1,11 +1,11 @@
 class_name Player extends CharacterBody3D
 
 @export_group("Movement")
-@export var walking_speed: float = 5.0
-@export var sprinting_speed: float = 8.0
-@export var crouching_speed: float = 3.0
-@export var jump_velocity: float = 5.0
-@export var lerp_speed: float = 20.0
+@export var walking_speed: float = 5.0 # 5
+@export var sprinting_speed: float = 10.0 # 8
+@export var crouching_speed: float = 2.0 # 3
+@export var jump_velocity: float = 5.0 # 5
+@export var lerp_speed: float = 20.0 # 20
 
 @export_group("Camera")
 @export_range(0.0, 10.0, 0.1) var mouse_sensitivity: float = 2.0
