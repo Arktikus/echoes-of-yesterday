@@ -30,7 +30,6 @@ naming/node_name_casing=2
 
 folder_colors={
 "res://Props/": "yellow",
-"res://addons/": "pink",
 "res://build/": "gray",
 "res://materials/": "teal",
 "res://player/": "purple",
