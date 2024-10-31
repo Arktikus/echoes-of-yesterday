@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt7hgke2npxyn"]
+[gd_scene load_steps=5 format=3 uid="uid://dt7hgke2npxyn"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_21upv"]
 
@@ -7,9 +7,10 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sbmto"]
 height = 1.2
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_f0r81"]
+
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_21upv")
-head_bobbing_enabled = false
 
 [node name="standing_collision_shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -20,14 +21,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CapsuleShape3D_sbmto")
 disabled = true
 
+[node name="world_model" type="Node3D" parent="."]
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="world_model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_f0r81")
+
 [node name="head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79, 0)
 
-[node name="eyes" type="Node3D" parent="head"]
+[node name="camera_smooth" type="Node3D" parent="head"]
 
-[node name="camera_3d" type="Camera3D" parent="head/eyes"]
-fov = 90.0
+[node name="camera_3d" type="Camera3D" parent="head/camera_smooth"]
+cull_mask = 1048573
 far = 100.0
 
-[node name="ray_cast_3d" type="RayCast3D" parent="."]
-target_position = Vector3(0, 2, 0)
+[node name="stairs_ahead_ray_cast_3d" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.75)
+target_position = Vector3(0, -0.55, 0)
+
+[node name="stairs_below_ray_cast_3d" type="RayCast3D" parent="."]
+target_position = Vector3(0, -0.75, 0)

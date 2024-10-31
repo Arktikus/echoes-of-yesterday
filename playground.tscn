@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bx7ntynsonqfi"]
+[gd_scene load_steps=26 format=3 uid="uid://bx7ntynsonqfi"]
 
 [ext_resource type="Texture2D" uid="uid://dhmcg15onasch" path="res://output-onlinepngtools(3).png" id="1_olesv"]
 [ext_resource type="PackedScene" uid="uid://dt7hgke2npxyn" path="res://player/player.tscn" id="2_gpd66"]
@@ -71,13 +71,15 @@ normal_texture = ExtResource("9_r8yv3")
 uv1_scale = Vector3(18, 6, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qhgrx"]
-lightmap_size_hint = Vector2i(51, 91)
+lightmap_size_hint = Vector2i(194, 346)
 material = SubResource("StandardMaterial3D_uo4bk")
 add_uv2 = true
 size = Vector3(9, 4, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6nhdt"]
 size = Vector3(9, 4, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4i35l"]
 
 [node name="Playground" type="Node3D"]
 
@@ -159,6 +161,12 @@ use_collision = true
 size = Vector3(1, 1, 9.82465)
 material = SubResource("StandardMaterial3D_c084p")
 
+[node name="csg_box_3d2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.972076, -0.234667, 0, 0.234667, 0.972076, 0, 0, 0, 1, -13.675, 2.52062, 1.83755)
+use_collision = true
+size = Vector3(1, 5.08685, 9.82465)
+material = SubResource("StandardMaterial3D_c084p")
+
 [node name="static_body_3d" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.031, 1, 0)
 
@@ -169,3 +177,21 @@ mesh = SubResource("BoxMesh_qhgrx")
 [node name="collision_shape_3d" type="CollisionShape3D" parent="static_body_3d"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_6nhdt")
+
+[node name="csg_combiner_3d" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="csg_mesh_3d" type="CSGMesh3D" parent="csg_combiner_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 4.93536, -8.089, -0.266898, -9.58986)
+use_collision = true
+mesh = SubResource("BoxMesh_4i35l")
+
+[node name="csg_mesh_3d2" type="CSGMesh3D" parent="csg_combiner_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 4.93536, -9.06444, -0.053007, -9.58986)
+use_collision = true
+mesh = SubResource("BoxMesh_4i35l")
+
+[node name="csg_mesh_3d3" type="CSGMesh3D" parent="csg_combiner_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 4.93536, -10.0392, 0.307491, -9.58986)
+use_collision = true
+mesh = SubResource("BoxMesh_4i35l")
