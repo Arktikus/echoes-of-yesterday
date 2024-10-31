@@ -9,6 +9,7 @@ height = 1.2
 
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_21upv")
+head_bobbing_enabled = false
 
 [node name="standing_collision_shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -25,6 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 [node name="eyes" type="Node3D" parent="head"]
 
 [node name="camera_3d" type="Camera3D" parent="head/eyes"]
+fov = 90.0
 far = 100.0
 
 [node name="ray_cast_3d" type="RayCast3D" parent="."]
