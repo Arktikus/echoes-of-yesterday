@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bx7ntynsonqfi"]
+[gd_scene load_steps=32 format=3 uid="uid://bx7ntynsonqfi"]
 
 [ext_resource type="Texture2D" uid="uid://dhmcg15onasch" path="res://output-onlinepngtools(3).png" id="1_olesv"]
 [ext_resource type="PackedScene" uid="uid://dt7hgke2npxyn" path="res://player/player.tscn" id="2_gpd66"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://fps_label.gd" id="7_k4pil"]
 [ext_resource type="Texture2D" uid="uid://b0mi4gxdqrvob" path="res://textures/wall/wall_02_edited.png" id="8_sb3lp"]
 [ext_resource type="Texture2D" uid="uid://db7tvabybt02y" path="res://textures/wall/wall_02_edited_normal.png" id="9_r8yv3"]
+[ext_resource type="PackedScene" uid="uid://ca0wevg1lb4rx" path="res://utils/WaterMaker3D/WaterMaker3D.tscn" id="13_v1t67"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_up78g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -31,6 +32,7 @@ fog_density = 0.5
 fog_aerial_perspective = 0.1
 fog_height_density = 0.2
 fog_depth_begin = 80.0
+volumetric_fog_density = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eij3s"]
 albedo_texture = ExtResource("1_olesv")
@@ -80,6 +82,38 @@ size = Vector3(9, 4, 0.5)
 size = Vector3(9, 4, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4i35l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1u3c2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ne0pq"]
+resource_local_to_scene = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1w7fs"]
+resource_local_to_scene = true
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_ne0pq")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_52sdh"]
+resource_local_to_scene = true
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_ne0pq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_160pn"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_color = Color(0.309804, 0.541176, 0.866667, 0.388235)
+roughness = 0.0
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_1w7fs")
+refraction_enabled = true
+refraction_texture = SubResource("NoiseTexture2D_52sdh")
+uv1_scale = Vector3(0.04, 0.04, 0.04)
+uv1_triplanar = true
+uv1_world_triplanar = true
 
 [node name="Playground" type="Node3D"]
 
@@ -182,16 +216,49 @@ shape = SubResource("BoxShape3D_6nhdt")
 use_collision = true
 
 [node name="csg_mesh_3d" type="CSGMesh3D" parent="csg_combiner_3d"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 4.93536, -8.089, -0.266898, -9.58986)
+transform = Transform3D(-0.857733, 0, -2.53724, 0, 1, 0, 0.514095, 0, -4.23322, -9.90069, -0.266898, -9.08851)
 use_collision = true
 mesh = SubResource("BoxMesh_4i35l")
 
 [node name="csg_mesh_3d2" type="CSGMesh3D" parent="csg_combiner_3d"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 4.93536, -9.06444, -0.053007, -9.58986)
+transform = Transform3D(-0.857733, 0, -2.53724, 0, 1, 0, 0.514095, 0, -4.23322, -9.06402, -0.053007, -9.58998)
 use_collision = true
 mesh = SubResource("BoxMesh_4i35l")
 
 [node name="csg_mesh_3d3" type="CSGMesh3D" parent="csg_combiner_3d"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 4.93536, -10.0392, 0.307491, -9.58986)
+transform = Transform3D(-0.857733, 0, -2.53724, 0, 1, 0, 0.514095, 0, -4.23322, -8.22793, 0.307491, -10.0911)
 use_collision = true
 mesh = SubResource("BoxMesh_4i35l")
+
+[node name="csg_mesh_3d4" type="CSGMesh3D" parent="csg_combiner_3d"]
+transform = Transform3D(-0.857733, 0, -2.53724, 0, 1, 0, 0.514095, 0, -4.23322, -6.61796, 1.26205, -9.08851)
+use_collision = true
+mesh = SubResource("BoxMesh_4i35l")
+
+[node name="csg_mesh_3d5" type="CSGMesh3D" parent="csg_combiner_3d"]
+transform = Transform3D(-0.857733, 0, -2.53724, 0, 1, 0, 0.514095, 0, -4.23322, -5.78129, 1.47594, -9.58998)
+use_collision = true
+mesh = SubResource("BoxMesh_4i35l")
+
+[node name="csg_mesh_3d6" type="CSGMesh3D" parent="csg_combiner_3d"]
+transform = Transform3D(-0.857733, 0, -2.53724, 0, 1, 0, 0.514095, 0, -4.23322, -4.94521, 1.83644, -10.0911)
+use_collision = true
+mesh = SubResource("BoxMesh_4i35l")
+
+[node name="csg_combiner_3d2" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="csg_mesh_3d4" type="CSGMesh3D" parent="csg_combiner_3d2"]
+transform = Transform3D(10.1417, 0, 0, 0, 3.30392, 0, 0, 0, 11.1606, 2.44073, 1.64833, -12.4236)
+use_collision = true
+mesh = SubResource("BoxMesh_4i35l")
+
+[node name="csg_mesh_3d5" type="CSGMesh3D" parent="csg_combiner_3d2"]
+transform = Transform3D(8.58736, 0, 0, 0, 3.30392, 0, 0, 0, 10.0252, 2.44073, 1.64833, -12.4236)
+operation = 2
+mesh = SubResource("BoxMesh_1u3c2")
+
+[node name="WaterMaker3D" parent="." instance=ExtResource("13_v1t67")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43301, 1.18052, -12.5139)
+size = Vector3(8.56555, 4.03864, 10.2051)
+material = SubResource("StandardMaterial3D_160pn")

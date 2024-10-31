@@ -21,8 +21,9 @@ class_name Player extends CharacterBody3D
 @export_range(0.0, 10.0, 0.1) var controller_sensitivity: float = 5.5
 
 @onready var world_model: Node3D = $world_model
-@onready var camera: Camera3D = $head/camera_smooth/camera_3d
-@onready var camera_smooth: Node3D = $head/camera_smooth
+@onready var head: Node3D = $head_original_position/head
+@onready var camera: Camera3D = $head_original_position/head/camera_smooth/camera_3d
+@onready var camera_smooth: Node3D = $head_original_position/head/camera_smooth
 
 @onready var standing_collision_shape: CollisionShape3D = $standing_collision_shape
 
@@ -33,6 +34,10 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var noclip: bool = false
 var wish_dir: Vector3 = Vector3.ZERO
 var cam_aligned_wish_dir: Vector3 = Vector3.ZERO
+
+const CROUCH_TRANSLATE: float = 0.7
+const CROUCH_JUMP_ADD: float = CROUCH_TRANSLATE * 0.9 # 0.9 for sourcelike camera jitter in air on crouch
+var is_crouched: bool = false
 
 const MAX_STEP_HEIGHT: float = 0.5
 var _snapped_to_stairs_last_frame: bool = false
@@ -79,6 +84,30 @@ func _handle_ground_physics(delta) -> void:
 	self.velocity *= new_speed
 	
 	_headbob_effect(delta)
+
+@onready var _original_capsule_height = standing_collision_shape.shape.height
+func _handle_crouch_physics(delta) -> void:
+	var was_crouched_last_frame = is_crouched
+	if Input.is_action_pressed("crouch"):
+		is_crouched = true
+	elif is_crouched and not self.test_move(self.global_transform, Vector3(0, CROUCH_TRANSLATE, 0)):
+		is_crouched = false
+	
+	# Allow for crouch to heighten/extend a jump
+	var translate_y_if_possible: float = 0.0
+	if was_crouched_last_frame != is_crouched and not is_on_floor() and not _snapped_to_stairs_last_frame:
+		translate_y_if_possible = CROUCH_JUMP_ADD if is_crouched else -CROUCH_JUMP_ADD
+	# Make sure not to get player stuck in floor/ceiling during crouch jumps
+	if translate_y_if_possible != 0.0:
+		var result = KinematicCollision3D.new()
+		self.test_move(self.global_transform, Vector3(0, translate_y_if_possible, 0), result)
+		self.position.y += result.get_travel().y
+		head.position.y -= result.get_travel().y
+		head.position.y = clampf(head.position.y, -CROUCH_TRANSLATE, 0)
+	
+	head.position.y = move_toward(head.position.y, -CROUCH_TRANSLATE if is_crouched else 0, 7.0 * delta)
+	standing_collision_shape.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
+	standing_collision_shape.position.y = standing_collision_shape.shape.height / 2
 
 func _handle_air_physics(delta) -> void:
 	self.velocity.y -= gravity * delta
@@ -192,6 +221,8 @@ func _physics_process(delta: float) -> void:
 	wish_dir = self.global_transform.basis * Vector3(_input_dir.x, 0., _input_dir.y)
 	cam_aligned_wish_dir = camera.global_transform.basis * Vector3(_input_dir.x, 0., _input_dir.y)
 	
+	_handle_crouch_physics(delta)
+	
 	if not _handle_noclip(delta):
 		if is_on_floor() or _snapped_to_stairs_last_frame:
 			if Input.is_action_just_pressed("jump") or (auto_bhop and Input.is_action_pressed("jump")):
@@ -259,6 +290,8 @@ func _headbob_effect(delta):
 	)
 
 func get_move_speed() -> float:
+	if is_crouched:
+		return walk_speed * 0.8 #TESTING TODO: CHANGE?
 	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
 
 #@export_group("Movement")
