@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt7hgke2npxyn"]
+[gd_scene load_steps=6 format=3 uid="uid://dt7hgke2npxyn"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_21upv"]
 
@@ -8,6 +8,9 @@
 height = 1.2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f0r81"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c27ll"]
+radius = 0.25
 
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_21upv")
@@ -37,6 +40,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79, 0)
 [node name="camera_3d" type="Camera3D" parent="head_original_position/head/camera_smooth"]
 cull_mask = 1048573
 far = 80.0
+
+[node name="interact_shape_cast_3d" type="ShapeCast3D" parent="head_original_position/head/camera_smooth/camera_3d"]
+shape = SubResource("SphereShape3D_c27ll")
+target_position = Vector3(0, 0, -1.85)
+max_results = 2
+collide_with_areas = true
 
 [node name="stairs_ahead_ray_cast_3d" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.75)

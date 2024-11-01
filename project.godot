@@ -33,10 +33,12 @@ enabled=PackedStringArray("res://addons/YouCanDoIt/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://Assets/": "pink",
 "res://Props/": "yellow",
 "res://addons/": "pink",
 "res://build/": "gray",
 "res://building/": "yellow",
+"res://interactables/": "yellow",
 "res://materials/": "orange",
 "res://player/": "purple",
 "res://shaders/": "orange",
@@ -119,6 +121,12 @@ noclip={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":86,"key_label":0,"unicode":118,"location":0,"echo":false,"script":null)
 ]
 }
+interact={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":2,"pressure":0.0,"pressed":false,"script":null)
+]
+}
 
 [physics]
 
@@ -127,8 +135,10 @@ noclip={
 [rendering]
 
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+environment/screen_space_reflection/roughness_quality=0
 lightmapping/primitive_meshes/texel_size=0.05
 environment/volumetric_fog/use_filter=0
 anti_aliasing/quality/msaa_3d=1
 anti_aliasing/quality/screen_space_aa=1
 occlusion_culling/use_occlusion_culling=true
+rendering_device/screen_space_reflection/roughness_quality=0

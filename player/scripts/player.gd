@@ -27,6 +27,8 @@ class_name Player extends CharacterBody3D
 
 @onready var standing_collision_shape: CollisionShape3D = $standing_collision_shape
 
+@onready var interact_shape_cast: ShapeCast3D = $head_original_position/head/camera_smooth/camera_3d/interact_shape_cast_3d
+
 @onready var stairs_ahead_ray_cast_3d: RayCast3D = $stairs_ahead_ray_cast_3d
 @onready var stairs_below_ray_cast_3d: RayCast3D = $stairs_below_ray_cast_3d
 
@@ -66,6 +68,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	_handle_controller_look_input(delta)
+	
+	if get_interactable_component_at_shapecast():
+		get_interactable_component_at_shapecast().hover_cursor(self)
+		if Input.is_action_just_pressed("interact"):
+			get_interactable_component_at_shapecast().interact_with(self)
 
 func _handle_ground_physics(delta) -> void:
 	var current_speed_in_wish_dir = self.velocity.dot(wish_dir)
@@ -152,6 +159,14 @@ func _handle_water_physics(delta) -> bool:
 	self.velocity = self.velocity.lerp(Vector3.ZERO, 2 * delta)
 	
 	return true
+
+func get_interactable_component_at_shapecast() -> InteractableComponent:
+	for i in interact_shape_cast.get_collision_count():
+		if i> 0 and interact_shape_cast.get_collider(0) != $".":
+			return null
+		if interact_shape_cast.get_collider(i).get_node_or_null("interactable_component") is InteractableComponent:
+			return interact_shape_cast.get_collider(i).get_node_or_null("interactable_component") #TESTING TODO MAYBE CHANGE
+	return null
 
 func _push_away_rigid_bodies():
 	for i in get_slide_collision_count():

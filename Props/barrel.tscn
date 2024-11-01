@@ -104,8 +104,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 visibility_range_end = 80.0
 mesh = SubResource("ArrayMesh_hvbdb")
 skeleton = NodePath("")
-
-[node name="reflection_probe" type="ReflectionProbe" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-size = Vector3(10, 10, 10)
-enable_shadows = true
