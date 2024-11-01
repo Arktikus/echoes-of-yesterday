@@ -15,6 +15,10 @@ run/main_scene="res://playground.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+UiEffects="res://ui/ui_effects.tscn"
+
 [display]
 
 window/size/viewport_width=1920
@@ -36,9 +40,11 @@ folder_colors={
 "res://Props/": "yellow",
 "res://addons/": "pink",
 "res://build/": "gray",
-"res://materials/": "teal",
+"res://materials/": "orange",
 "res://player/": "purple",
+"res://shaders/": "orange",
 "res://textures/": "orange",
+"res://ui/": "purple",
 "res://utils/": "pink"
 }
 

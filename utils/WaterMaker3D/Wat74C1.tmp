@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://ca0wevg1lb4rx"]
+[gd_scene load_steps=11 format=3 uid="uid://ca0wevg1lb4rx"]
 
+[ext_resource type="Script" path="res://utils/WaterMaker3D/WaterMaker3D.gd" id="1_7s6ww"]
 [ext_resource type="Shader" path="res://utils/WaterMaker3D/CameraWaterOverlay.gdshader" id="2_12cox"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1bimf"]
@@ -48,6 +49,8 @@ shader_parameter/wobble_speed = 1.0
 [node name="WaterMaker3D" type="CSGBox3D"]
 process_priority = 999
 material = SubResource("StandardMaterial3D_gdho2")
+script = ExtResource("1_7s6ww")
+fog_density = null
 
 [node name="SwimmableArea3D" type="Area3D" parent="." groups=["water_area"]]
 unique_name_in_owner = true
