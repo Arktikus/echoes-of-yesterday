@@ -53,6 +53,10 @@ func _ready() -> void:
 	for c in world_model.find_children("*", "VisualInstance3D"):
 		c.set_layer_mask_value(1, false)
 		c.set_layer_mask_value(2, true)
+	
+	for area in get_tree().get_nodes_in_group("water_area"):
+		area.body_entered.connect(_on_water_entered)
+		area.body_exited.connect(_on_water_exited)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
@@ -159,6 +163,14 @@ func _handle_water_physics(delta) -> bool:
 	self.velocity = self.velocity.lerp(Vector3.ZERO, 2 * delta)
 	
 	return true
+
+func _on_water_entered(body):
+	if body == self:
+		Effects.set_underwater_effect(true)
+
+func _on_water_exited(body):
+	if body == self:
+		Effects.set_underwater_effect(false)
 
 func get_interactable_component_at_shapecast() -> InteractableComponent:
 	for i in interact_shape_cast.get_collision_count():

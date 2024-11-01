@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://bx7ntynsonqfi"]
+[gd_scene load_steps=40 format=4 uid="uid://bx7ntynsonqfi"]
 
 [ext_resource type="Texture2D" uid="uid://dhmcg15onasch" path="res://output-onlinepngtools(3).png" id="1_olesv"]
 [ext_resource type="PackedScene" uid="uid://dt7hgke2npxyn" path="res://player/player.tscn" id="2_gpd66"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://interactables/scripts/interactable_component.gd" id="10_ennq3"]
 [ext_resource type="PackedScene" uid="uid://jntvi68k5ec0" path="res://building/walls/wall_02.tscn" id="11_rl0xi"]
 [ext_resource type="PackedScene" uid="uid://cfqerefx538ii" path="res://interactables/door_01.tscn" id="12_baed2"]
+[ext_resource type="Shader" path="res://water_surface.gdshader" id="14_jdffm"]
+[ext_resource type="Texture2D" uid="uid://bfghxwd08ph6m" path="res://Water 0341normal.jpg" id="15_i3lyd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_up78g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -169,6 +171,40 @@ bottom_radius = 1.1
 height = 1.0
 radial_segments = 9
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_k5iwb"]
+size = Vector3(5, 3, 5)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7307h"]
+seed = 12
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qwf8b"]
+noise = SubResource("FastNoiseLite_7307h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8bdrm"]
+render_priority = 0
+shader = ExtResource("14_jdffm")
+shader_parameter/depth_fade_distance = 1.0
+shader_parameter/absorbance = 2.0
+shader_parameter/shallow_color = Color(0.22, 0.66, 1, 1)
+shader_parameter/deep_color = Color(0, 0.25, 0.45, 1)
+shader_parameter/foam_amount = 0.2
+shader_parameter/foam_color = Color(1, 1, 1, 1)
+shader_parameter/roughness = 0.05
+shader_parameter/wave_scale = 8.0
+shader_parameter/height_scale = 0.15
+shader_parameter/wave_dir1 = Vector2(1, 0)
+shader_parameter/wave_dir2 = Vector2(0, 1)
+shader_parameter/wave_speed = 0.015
+shader_parameter/foam_noise = SubResource("NoiseTexture2D_qwf8b")
+shader_parameter/normal1 = ExtResource("15_i3lyd")
+shader_parameter/normal2 = ExtResource("15_i3lyd")
+
+[sub_resource type="BoxMesh" id="BoxMesh_by4ga"]
+lightmap_size_hint = Vector2i(204, 109)
+material = SubResource("ShaderMaterial_8bdrm")
+add_uv2 = true
+size = Vector3(5, 0.1, 5)
+
 [node name="Playground" type="Node3D"]
 
 [node name="world_environment" type="WorldEnvironment" parent="."]
@@ -290,65 +326,43 @@ transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.
 [node name="barrel4" parent="." instance=ExtResource("7_6gvi2")]
 transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 8.68536, 0.585413, 8.19166)
 
+[node name="barrel6" parent="." instance=ExtResource("7_6gvi2")]
+transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 3.64071, 0.585413, -21.5358)
+
 [node name="barrel5" parent="." instance=ExtResource("7_6gvi2")]
 transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 8.68536, 0.585413, 9.69549)
-
-[node name="barrel6" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 10.2385, 0.585413, 9.69549)
-
-[node name="barrel7" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 11.5943, 0.585413, 9.69549)
-
-[node name="barrel8" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 11.5943, 0.585413, 11.6814)
-
-[node name="barrel9" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 9.25684, 0.585413, 11.6814)
-
-[node name="barrel10" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 6.78299, 0.585413, 11.6814)
-
-[node name="barrel11" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 6.78299, 0.585413, 14.1756)
-
-[node name="barrel12" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 10.5411, 0.585413, 14.1756)
-
-[node name="barrel13" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 10.5411, 0.585413, 12.7679)
-
-[node name="barrel14" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 13.2764, 0.585413, 12.7679)
-
-[node name="barrel15" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.997947, -0.0577067, 0.0277786, 0.0540045, 0.991381, 0.119363, -0.0344272, -0.117618, 0.992462, 15.5361, 0.585413, 12.7679)
-
-[node name="barrel16" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.859209, 0.0147699, -0.511411, 0.0540045, 0.991381, 0.119363, 0.508766, -0.130176, 0.851006, 15.5361, 0.585413, 12.7679)
-
-[node name="barrel17" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.859209, 0.0147699, -0.511411, 0.0540045, 0.991381, 0.119363, 0.508766, -0.130176, 0.851006, 17.6573, 0.585413, 12.7679)
-
-[node name="barrel18" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.859209, 0.0147699, -0.511411, 0.0540045, 0.991381, 0.119363, 0.508766, -0.130176, 0.851006, 17.6573, 0.585413, 10.5532)
-
-[node name="barrel19" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.859209, 0.0147699, -0.511411, 0.0540045, 0.991381, 0.119363, 0.508766, -0.130176, 0.851006, 15.1081, 0.585413, 10.5532)
-
-[node name="barrel20" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.859209, 0.0147699, -0.511411, 0.0540045, 0.991381, 0.119363, 0.508766, -0.130176, 0.851006, 15.1081, 0.585413, 8.83235)
-
-[node name="barrel21" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.859209, 0.0147699, -0.511411, 0.0540045, 0.991381, 0.119363, 0.508766, -0.130176, 0.851006, 13.2706, 0.585413, 8.83235)
-
-[node name="barrel22" parent="." instance=ExtResource("7_6gvi2")]
-transform = Transform3D(0.859209, 0.0147699, -0.511411, 0.0540045, 0.991381, 0.119363, 0.508766, -0.130176, 0.851006, 13.2706, 0.585413, 8.83235)
 
 [node name="wall_02" parent="." instance=ExtResource("11_rl0xi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8927, 1, 0)
 
 [node name="door_01" parent="." instance=ExtResource("12_baed2")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.52766, 0, -6.09586)
+transform = Transform3D(-3.61999e-06, 0, 1, 0, 1, 0, -1, 0, -3.61999e-06, 9.52766, 0, -6.09586)
+
+[node name="area_3d" type="Area3D" parent="." groups=["water_area"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -22.093)
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="area_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38744, 0)
+shape = SubResource("BoxShape3D_k5iwb")
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.67076, -22.0161)
+cast_shadow = 0
+visibility_range_end = 80.0
+mesh = SubResource("BoxMesh_by4ga")
+skeleton = NodePath("../csg_combiner_3d")
+
+[node name="csg_combiner_3d" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="csg_box_3d2" type="CSGBox3D" parent="csg_combiner_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45545, -22.0196)
+size = Vector3(5.5, 3, 5.5)
+
+[node name="csg_box_3d" type="CSGBox3D" parent="csg_combiner_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45705, -22.0196)
+operation = 2
+size = Vector3(5, 3, 5)
 
 [connection signal="interacted" from="button_01/interactable_component" to="door_01" method="toggle_open"]
 [connection signal="interacted" from="button_01/interactable_component" to="button_01/button/AnimationPlayer" method="play" binds= ["ButtonPress"]]

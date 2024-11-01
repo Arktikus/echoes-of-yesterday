@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://ykfs80jibgam"]
+
+[ext_resource type="Script" path="res://ui/effects.gd" id="1_cy3jn"]
+[ext_resource type="Shader" path="res://ui/water_fog.gdshader" id="1_qrmti"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d5itn"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f64je"]
+noise = SubResource("FastNoiseLite_d5itn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4hap"]
+shader = ExtResource("1_qrmti")
+shader_parameter/underwater_color = Color(0, 0.4, 0.6, 1)
+shader_parameter/fog_density = 0.3
+shader_parameter/wave_distortion = 0.5
+shader_parameter/wave_speed = 4.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_f64je")
+
+[node name="effects" type="CanvasLayer"]
+script = ExtResource("1_cy3jn")
+
+[node name="underwater_effect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_y4hap")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
