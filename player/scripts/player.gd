@@ -112,7 +112,7 @@ func _handle_crouch_physics(delta) -> void:
 		head.position.y -= result.get_travel().y
 		head.position.y = clampf(head.position.y, -CROUCH_TRANSLATE, 0)
 	
-	head.position.y = move_toward(head.position.y, -CROUCH_TRANSLATE if is_crouched else 0, 7.0 * delta)
+	head.position.y = move_toward(head.position.y, -CROUCH_TRANSLATE if is_crouched else 0.0, 7.0 * delta)
 	standing_collision_shape.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 	standing_collision_shape.position.y = standing_collision_shape.shape.height / 2
 
@@ -303,7 +303,7 @@ func _handle_controller_look_input(delta):
 	camera.rotate_x(_current_controller_look.y * controller_sensitivity / 100) # look up and down
 	camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90)) # clamp up and down range
 
-func clip_velocity(normal: Vector3, overbounce : float, delta : float) -> void:
+func clip_velocity(normal: Vector3, overbounce : float, _delta : float) -> void:
 	# When strafing into wall, + gravity, velocity will be pointing much in the opposite direction of the normal
 	# So with this code, we will back up and off of the wall, cancelling out our strafe + gravity, allowing surf.
 	var backoff := self.velocity.dot(normal) * overbounce

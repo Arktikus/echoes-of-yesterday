@@ -9,7 +9,7 @@ func interact_with(character: CharacterBody3D):
 	interacted.emit()
 	interacted_by_character.emit(character)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	for c in characters_hovering.keys():
 		if Engine.get_process_frames() - characters_hovering[c] > 1:
 			characters_hovering.erase(c)
