@@ -1,6 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ca0wevg1lb4rx"]
-
-[ext_resource type="Shader" path="res://utils/WaterMaker3D/CameraWaterOverlay.gdshader" id="2_12cox"]
+[gd_scene load_steps=6 format=3 uid="uid://ca0wevg1lb4rx"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1bimf"]
 resource_local_to_scene = true
@@ -35,18 +33,7 @@ uv1_world_triplanar = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_om5f8"]
 resource_local_to_scene = true
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cfplo"]
-size = Vector3(0.1, 0.1, 0.1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ccyp1"]
-shader = ExtResource("2_12cox")
-shader_parameter/wobble_strength = 0.005
-shader_parameter/wobble_speed = 1.0
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dcd7l"]
-
 [node name="WaterMaker3D" type="CSGBox3D"]
-process_priority = 999
 material = SubResource("StandardMaterial3D_gdho2")
 
 [node name="SwimmableArea3D" type="Area3D" parent="." groups=["water_area"]]
@@ -55,24 +42,3 @@ unique_name_in_owner = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SwimmableArea3D"]
 unique_name_in_owner = true
 shape = SubResource("BoxShape3D_om5f8")
-
-[node name="CameraPosShapeCast3D" type="ShapeCast3D" parent="."]
-unique_name_in_owner = true
-shape = SubResource("BoxShape3D_cfplo")
-target_position = Vector3(0, 0, 0)
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="WaterRippleOverlay" type="TextureRect" parent="."]
-unique_name_in_owner = true
-visible = false
-z_index = -10
-z_as_relative = false
-material = SubResource("ShaderMaterial_ccyp1")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("PlaceholderTexture2D_dcd7l")

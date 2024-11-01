@@ -4,6 +4,7 @@ class_name Player extends CharacterBody3D
 @export var jump_velocity: float = 6.0
 @export var walk_speed: float = 7.0
 @export var sprint_speed: float = 8.5
+@export var swim_up_speed: float = 10.0
 @export var auto_bhop: bool = true
 @export_subgroup("Ground")
 @export var ground_accel: float = 14.0
@@ -15,7 +16,6 @@ class_name Player extends CharacterBody3D
 @export var air_accel: float = 800.0
 @export_subgroup("Noclip")
 @export var noclip_speed_mult: float = 3.0
-
 @export_group("Camera")
 @export_range(0.0, 10.0, 0.1) var mouse_sensitivity: float = 6.0
 @export_range(0.0, 10.0, 0.1) var controller_sensitivity: float = 5.5
@@ -137,6 +137,43 @@ func _handle_air_physics(delta) -> void:
 			self.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 		clip_velocity(get_wall_normal(), 1, delta) # Allows surf
 
+func _handle_water_physics(delta) -> bool:
+	if get_tree().get_nodes_in_group("water_area").all(func(area): return !area.overlaps_body(self)):
+		return false
+	
+	if not is_on_floor():
+		velocity.y -= gravity * 0.1 * delta
+	
+	self.velocity += cam_aligned_wish_dir * get_move_speed() * delta
+	
+	if Input.is_action_pressed("jump"):
+		self.velocity.y += swim_up_speed * delta
+	
+	self.velocity = self.velocity.lerp(Vector3.ZERO, 2 * delta)
+	
+	return true
+
+func _push_away_rigid_bodies():
+	for i in get_slide_collision_count():
+		var c := get_slide_collision(i)
+		if c.get_collider() is RigidBody3D:
+			var push_dir = -c.get_normal()
+			# How much velocity the object needs to increase to match player velocity in the push direction
+			var velocity_diff_in_push_dir = self.velocity.dot(push_dir) - c.get_collider().linear_velocity.dot(push_dir)
+			# Only count velocity towards push dir, away from character
+			velocity_diff_in_push_dir = max(0., velocity_diff_in_push_dir)
+			# Objects with more mass than us should be harder to push. But doesn't really make sense to push faster than we are going
+			const MY_APPROX_MASS_KG = 80.0
+			var mass_ratio = min(1., MY_APPROX_MASS_KG / c.get_collider().mass)
+			# Optional add: Don't push object at all if it's 4x heavier or more
+			if mass_ratio < 0.25:
+				continue
+			# Don't push object from above/below
+			push_dir.y = 0
+			# 5.0 is a magic number, adjust to your needs
+			var push_force = mass_ratio * 5.0
+			c.get_collider().apply_impulse(push_dir * velocity_diff_in_push_dir * push_force, c.get_position() - c.get_collider().global_position)
+
 func _snap_up_to_stairs_check(delta) -> bool:
 	if not is_on_floor() and not _snapped_to_stairs_last_frame: return false
 	var expected_move_motion = self.velocity * Vector3(1,0,1) * delta
@@ -224,14 +261,16 @@ func _physics_process(delta: float) -> void:
 	_handle_crouch_physics(delta)
 	
 	if not _handle_noclip(delta):
-		if is_on_floor() or _snapped_to_stairs_last_frame:
-			if Input.is_action_just_pressed("jump") or (auto_bhop and Input.is_action_pressed("jump")):
-				self.velocity.y = jump_velocity
-			_handle_ground_physics(delta)
-		else:
-			_handle_air_physics(delta)
-		
+		if not _handle_water_physics(delta):
+			if is_on_floor() or _snapped_to_stairs_last_frame:
+				if Input.is_action_just_pressed("jump") or (auto_bhop and Input.is_action_pressed("jump")):
+					self.velocity.y = jump_velocity
+				_handle_ground_physics(delta)
+			else:
+				_handle_air_physics(delta)
+			
 		if not _snap_up_to_stairs_check(delta):
+			_push_away_rigid_bodies()
 			move_and_slide()
 			_snap_down_to_stairs_check()
 	_slide_camera_smooth_back_to_origin(delta)

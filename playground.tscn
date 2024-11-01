@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bx7ntynsonqfi"]
+[gd_scene load_steps=31 format=3 uid="uid://bx7ntynsonqfi"]
 
 [ext_resource type="Texture2D" uid="uid://dhmcg15onasch" path="res://output-onlinepngtools(3).png" id="1_olesv"]
 [ext_resource type="PackedScene" uid="uid://dt7hgke2npxyn" path="res://player/player.tscn" id="2_gpd66"]
@@ -83,24 +83,22 @@ size = Vector3(9, 4, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4i35l"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_1u3c2"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ne0pq"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qx5i2"]
 resource_local_to_scene = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1w7fs"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iho0v"]
 resource_local_to_scene = true
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_ne0pq")
+noise = SubResource("FastNoiseLite_qx5i2")
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_52sdh"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4vb23"]
 resource_local_to_scene = true
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_ne0pq")
+noise = SubResource("FastNoiseLite_qx5i2")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_160pn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ybdud"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
@@ -108,9 +106,9 @@ depth_draw_mode = 1
 albedo_color = Color(0.309804, 0.541176, 0.866667, 0.388235)
 roughness = 0.0
 normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_1w7fs")
+normal_texture = SubResource("NoiseTexture2D_iho0v")
 refraction_enabled = true
-refraction_texture = SubResource("NoiseTexture2D_52sdh")
+refraction_texture = SubResource("NoiseTexture2D_4vb23")
 uv1_scale = Vector3(0.04, 0.04, 0.04)
 uv1_triplanar = true
 uv1_world_triplanar = true
@@ -128,6 +126,7 @@ directional_shadow_max_distance = 50.0
 
 [node name="player" parent="." instance=ExtResource("2_gpd66")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.564661, 3.25895, 0.864831)
+platform_on_leave = 2
 
 [node name="floor" type="StaticBody3D" parent="."]
 
@@ -191,12 +190,14 @@ size = Vector3(2, 2, 2)
 
 [node name="csg_box_3d" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09769, 2.13845, 1.83755)
+visible = false
 use_collision = true
 size = Vector3(1, 1, 9.82465)
 material = SubResource("StandardMaterial3D_c084p")
 
 [node name="csg_box_3d2" type="CSGBox3D" parent="."]
 transform = Transform3D(0.972076, -0.234667, 0, 0.234667, 0.972076, 0, 0, 0, 1, -13.675, 2.52062, 1.83755)
+visible = false
 use_collision = true
 size = Vector3(1, 5.08685, 9.82465)
 material = SubResource("StandardMaterial3D_c084p")
@@ -213,6 +214,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_6nhdt")
 
 [node name="csg_combiner_3d" type="CSGCombiner3D" parent="."]
+visible = false
 use_collision = true
 
 [node name="csg_mesh_3d" type="CSGMesh3D" parent="csg_combiner_3d"]
@@ -246,19 +248,10 @@ use_collision = true
 mesh = SubResource("BoxMesh_4i35l")
 
 [node name="csg_combiner_3d2" type="CSGCombiner3D" parent="."]
+visible = false
 use_collision = true
-
-[node name="csg_mesh_3d4" type="CSGMesh3D" parent="csg_combiner_3d2"]
-transform = Transform3D(10.1417, 0, 0, 0, 3.30392, 0, 0, 0, 11.1606, 2.44073, 1.64833, -12.4236)
-use_collision = true
-mesh = SubResource("BoxMesh_4i35l")
-
-[node name="csg_mesh_3d5" type="CSGMesh3D" parent="csg_combiner_3d2"]
-transform = Transform3D(8.58736, 0, 0, 0, 3.30392, 0, 0, 0, 10.0252, 2.44073, 1.64833, -12.4236)
-operation = 2
-mesh = SubResource("BoxMesh_1u3c2")
 
 [node name="WaterMaker3D" parent="." instance=ExtResource("13_v1t67")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43301, 1.18052, -12.5139)
-size = Vector3(8.56555, 4.03864, 10.2051)
-material = SubResource("StandardMaterial3D_160pn")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.95332, -12.6244)
+size = Vector3(8, 4, 6)
+material = SubResource("StandardMaterial3D_ybdud")
