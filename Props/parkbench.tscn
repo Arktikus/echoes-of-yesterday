@@ -97,5 +97,5 @@ shape = SubResource("BoxShape3D_qewdn")
 
 [node name="parkbench" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.0130236, 7.41246e-09, -0.0270822, -0.0738606, -1.39756e-07, 0.00477532, -6.70552e-09, 1.525, 5.69263e-10, 0.797754, 1.47478, 2)
-visibility_range_end = 100.0
+visibility_range_end = 80.0
 mesh = SubResource("ArrayMesh_fng8d")

@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://jntvi68k5ec0"]
+
+[ext_resource type="Texture2D" uid="uid://b0mi4gxdqrvob" path="res://textures/wall/wall_02_edited.png" id="1_3dxfh"]
+[ext_resource type="Texture2D" uid="uid://db7tvabybt02y" path="res://textures/wall/wall_02_edited_normal.png" id="2_o5x8n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uo4bk"]
+albedo_texture = ExtResource("1_3dxfh")
+normal_texture = ExtResource("2_o5x8n")
+uv1_scale = Vector3(4, 4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qhgrx"]
+lightmap_size_hint = Vector2i(94, 246)
+material = SubResource("StandardMaterial3D_uo4bk")
+add_uv2 = true
+size = Vector3(4, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6nhdt"]
+size = Vector3(4, 4, 0.5)
+
+[node name="wall_02" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00117, 0)
+mesh = SubResource("BoxMesh_qhgrx")
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_6nhdt")

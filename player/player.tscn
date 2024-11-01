@@ -36,7 +36,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79, 0)
 
 [node name="camera_3d" type="Camera3D" parent="head_original_position/head/camera_smooth"]
 cull_mask = 1048573
-far = 100.0
+far = 80.0
 
 [node name="stairs_ahead_ray_cast_3d" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.75)

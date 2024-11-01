@@ -36,6 +36,7 @@ folder_colors={
 "res://Props/": "yellow",
 "res://addons/": "pink",
 "res://build/": "gray",
+"res://building/": "yellow",
 "res://materials/": "orange",
 "res://player/": "purple",
 "res://shaders/": "orange",
@@ -127,8 +128,7 @@ noclip={
 
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
 lightmapping/primitive_meshes/texel_size=0.05
-environment/volumetric_fog/volume_size=256
-environment/volumetric_fog/volume_depth=256
+environment/volumetric_fog/use_filter=0
 anti_aliasing/quality/msaa_3d=1
 anti_aliasing/quality/screen_space_aa=1
 occlusion_culling/use_occlusion_culling=true
